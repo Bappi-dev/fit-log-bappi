@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import navImag from '@/assest/logo (4).png'
 import Link from 'next/link';
+import PlanButton from './sheradData/PlanButton';
 
 const Navbar = () => {
     return (
@@ -16,7 +17,7 @@ const Navbar = () => {
                     <li><Link href="/myplan">My Plan</Link></li>
                 </ul>
                 <div className='lg:flex gap-5'>
-                    <button>Plan</button>
+                    <PlanButton/>
                     <button>Saved</button>
                 </div>
             </div>
