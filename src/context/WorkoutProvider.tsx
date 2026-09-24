@@ -1,4 +1,5 @@
 'use client'
+import { IWorkouts } from '@/types/type';
 import  { createContext,  useState } from 'react';
 
 interface IWorkoutContext {
@@ -6,13 +7,16 @@ interface IWorkoutContext {
   setSelectedWorkouts: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const WorkoutContext = createContext<IWorkoutContext[]>([])
+export const WorkoutContext = createContext<IWorkoutContext | null>(null);
 
 const WorkoutProvider = ({children}: {children : React.ReactNode}) => {
       const [selectedWorkouts, setSelectedWorkouts] = useState(0);
+      const [savedWorkouts, setSavedWorkouts] = useState<IWorkouts[]>([]);
       const sherad = {
         selectedWorkouts, 
-        setSelectedWorkouts
+        setSelectedWorkouts,
+        savedWorkouts,
+        setSavedWorkouts
       }
     return <WorkoutContext.Provider value={sherad}>
         {children}

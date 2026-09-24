@@ -1,18 +1,23 @@
+'use client'
+import { WorkoutContext } from '@/context/WorkoutProvider';
 import { IWorkouts } from '@/types/type';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import { useContext } from 'react';
 import { CgBmw } from 'react-icons/cg';
 import { FaRegStarHalfStroke } from 'react-icons/fa6';
 import { WiTime4 } from 'react-icons/wi';
 
 interface IWorkoutProps {
     workout: IWorkouts
+    setSelectedWorkouts: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const WorkoutsCard = ({ workout }: IWorkoutProps) => {
+    
     return (
-        <Link href={`workouts/${workout.id}`}>
+        <Link
+            href={`workouts/${workout.id}`}>
             <div className="rounded-xl hover:border border-amber-300  transition-transform duration-300 bg-[#4b4e57] text-white shadow-lg my-6">
                 {/* Image */}
                 <div className="h-[220px]  rounded-b-none rounded-2xl  overflow-hidden">
@@ -57,7 +62,7 @@ const WorkoutsCard = ({ workout }: IWorkoutProps) => {
                     <div className="flex items-center justify-items-start gap-5 text-[10px] text-gray-400">
 
                         <div className="flex items-center font-bold gap-1">
-                             <WiTime4 />
+                            <WiTime4 />
                             <span>{workout.duration} min</span>
                         </div>
 

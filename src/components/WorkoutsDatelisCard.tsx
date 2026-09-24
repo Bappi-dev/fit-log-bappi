@@ -113,9 +113,7 @@ const WorkoutsDatelisCard = ({ workout }: IWorkoutPorps) => {
 
                             {/* Buttons */}
                             <div className="mt-6 flex flex-wrap gap-3">
-                                <button className="rounded-md bg-[#c6ff00] px-4 py-2 text-xs font-bold text-black transition hover:bg-[#b5eb00]">
-                                    🗓 Add to today plan
-                                </button>
+                                <
 
                                 <button className="rounded-md border border-[#30343b] px-4 py-2 text-xs text-gray-300 transition hover:bg-[#1b1e23]">
                                     ♡ Save for later
