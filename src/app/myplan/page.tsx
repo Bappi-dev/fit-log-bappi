@@ -15,21 +15,31 @@ const MyPlan = () => {
 
   const { selectedWorkouts, savedWorkouts } = context;
 
-  // কোন tab active
   const [activeTab, setActiveTab] = useState<"today" | "saved">("today");
 
-  // Active tab অনুযায়ী workout
-  const workoutsToShow =
+  const [sortBy, setSortBy] = useState<"duration" | "calories">("duration");
+
+  // Which workouts should be displayed
+  const currentWorkouts =
     activeTab === "today" ? selectedWorkouts : savedWorkouts;
 
-  // Active tab-এর total minutes
-  const totalMinutes = workoutsToShow.reduce(
+  // Sort workouts
+  const workoutsToShow = [...currentWorkouts].sort((a, b) => {
+    if (sortBy === "duration") {
+      return a.duration - b.duration;
+    }
+
+    return a.caloriesBurned - b.caloriesBurned;
+  });
+
+  // Total minutes
+  const totalMinutes = currentWorkouts.reduce(
     (total, workout) => total + workout.duration,
     0
   );
 
-  // Active tab-এর total calories
-  const totalCalories = workoutsToShow.reduce(
+  // Total calories
+  const totalCalories = currentWorkouts.reduce(
     (total, workout) => total + workout.caloriesBurned,
     0
   );
@@ -39,16 +49,18 @@ const MyPlan = () => {
       <div className="mx-auto max-w-7xl">
 
         {/* Header */}
-        <h1 className="text-2xl font-bold">
-          MY PLAN
-        </h1>
+        <div>
+          <h1 className="text-2xl font-bold">
+            MY PLAN
+          </h1>
 
-        <p className="mt-1 text-sm text-gray-400">
-          Cap of five lifts for today. Finish them, then load more.
-        </p>
+          <p className="mt-1 text-sm text-gray-400">
+            Cap of five lifts for today. Finish them, then load more.
+          </p>
+        </div>
 
-        {/* Statistics */}
-        <div className="mt-6 grid grid-cols-3 rounded-xl border border-[#272b32] bg-[#15181e]">
+        {/* Stats */}
+        <div className="mt-6 grid grid-cols-1 rounded-xl border border-[#272b32] bg-[#15181e] sm:grid-cols-3">
 
           {/* Exercises */}
           <div className="p-6">
@@ -57,12 +69,12 @@ const MyPlan = () => {
             </p>
 
             <p className="mt-1 text-3xl font-bold text-[#ccff00]">
-              {workoutsToShow.length}
+              {currentWorkouts.length}
             </p>
           </div>
 
           {/* Minutes */}
-          <div className="border-l border-[#272b32] p-6">
+          <div className="border-t border-[#272b32] p-6 sm:border-l sm:border-t-0">
             <p className="text-xs text-gray-500">
               Minutes
             </p>
@@ -73,7 +85,7 @@ const MyPlan = () => {
           </div>
 
           {/* Calories */}
-          <div className="border-l border-[#272b32] p-6">
+          <div className="border-t border-[#272b32] p-6 sm:border-l sm:border-t-0">
             <p className="text-xs text-gray-500">
               Calories
             </p>
@@ -85,115 +97,146 @@ const MyPlan = () => {
         </div>
 
         {/* Tabs */}
-        <div className="mt-6">
-          <div className="mb-4 flex gap-2">
+        <div className="mt-6 flex gap-2">
 
-            {/* Today's Plan */}
-            <button
-              onClick={() => setActiveTab("today")}
-              className={`rounded-md px-4 py-2 text-xs ${activeTab === "today"
-                  ? "bg-[#1b1e23] text-white"
-                  : "text-gray-500"
-                }`}
-            >
-              Today's Plan
-            </button>
+          {/* Today's Plan */}
+          <button
+            onClick={() => setActiveTab("today")}
+            className={`rounded-md px-4 py-2 text-xs transition ${activeTab === "today"
+                ? "bg-[#1b1e23] text-white"
+                : "text-gray-500 hover:text-white"
+              }`}
+          >
+            Today's Plan
+          </button>
 
-            {/* Saved */}
-            <button
-              onClick={() => setActiveTab("saved")}
-              className={`rounded-md px-4 py-2 text-xs ${activeTab === "saved"
-                  ? "bg-[#1b1e23] text-white"
-                  : "text-gray-500"
-                }`}
-            >
-              Saved
-            </button>
-          </div>
+          {/* Saved */}
+          <button
+            onClick={() => setActiveTab("saved")}
+            className={`rounded-md px-4 py-2 text-xs transition ${activeTab === "saved"
+                ? "bg-[#1b1e23] text-white"
+                : "text-gray-500 hover:text-white"
+              }`}
+          >
+            Saved
+          </button>
+        </div>
 
-          {/* Workout Cards */}
-          <div className="space-y-3">
+        {/* Sort */}
+        <div className="mt-4 flex items-center justify-end gap-3 border-y border-[#272b32] py-4">
 
-            {workoutsToShow.length === 0 ? (
-              <div className="rounded-xl border border-[#272b32] bg-[#15181e] p-10 text-center text-sm text-gray-500">
+          <span className="text-sm text-gray-500">
+            Sort By
+          </span>
+
+          <select
+            value={sortBy}
+            onChange={(e) =>
+              setSortBy(
+                e.target.value as "duration" | "calories"
+              )
+            }
+            className="rounded-lg border border-[#30343b] bg-[#15181e] px-4 py-2 text-sm text-white outline-none"
+          >
+            <option value="duration">
+              Duration
+            </option>
+
+            <option value="calories">
+              Calories
+            </option>
+          </select>
+        </div>
+
+        {/* Workout List */}
+        <div className="mt-6 space-y-3">
+
+          {workoutsToShow.length === 0 ? (
+            <div className="rounded-xl border border-[#272b32] bg-[#15181e] py-16 text-center">
+
+              <p className="text-gray-400">
                 {activeTab === "today"
-                  ? "No workouts added to today's plan."
+                  ? "No workouts added to today's plan yet."
                   : "No saved workouts yet."}
-              </div>
-            ) : (
-              workoutsToShow.map((workout) => (
-                <div
-                  key={workout.id}
-                  className="flex items-center gap-4 rounded-xl border border-[#272b32] bg-[#15181e] p-3"
-                >
-                  {/* Image */}
-                  <Image
-                    src={workout.image}
-                    alt={workout.name}
-                    width={100}
-                    height={70}
-                    className="h-[70px] w-[100px] rounded-lg object-cover"
-                  />
+              </p>
 
-                  {/* Content */}
-                  <div className="flex-1">
+            </div>
+          ) : (
+            workoutsToShow.map((workout) => (
+              <div
+                key={workout.id}
+                className="flex flex-col gap-4 rounded-xl border border-[#272b32] bg-[#15181e] p-3 md:flex-row md:items-center"
+              >
 
-                    <h2 className="font-bold uppercase">
-                      {workout.name}
-                    </h2>
+                {/* Image */}
+                <Image
+                  src={workout.image}
+                  alt={workout.name}
+                  width={100}
+                  height={70}
+                  className="h-[70px] w-[100px] rounded-lg object-cover"
+                />
 
-                    <p className="text-xs text-gray-500">
-                      {workout.muscleGroups?.[0]}
-                    </p>
+                {/* Content */}
+                <div className="flex-1">
 
-                    <div className="mt-1 flex gap-3 text-xs text-gray-400">
+                  <h2 className="font-bold uppercase">
+                    {workout.name}
+                  </h2>
 
-                      <span>
-                        ◷ {workout.duration} min
-                      </span>
+                  <p className="text-xs text-gray-500">
+                    {workout.muscleGroups?.[0]}
+                  </p>
 
-                      <span>
-                        🔥 {workout.caloriesBurned} kcal
-                      </span>
+                  <div className="mt-1 flex flex-wrap gap-3 text-xs text-gray-400">
+                    <span>
+                      ◷ {workout.duration} min
+                    </span>
 
-                      <span>
-                        ⭐ {workout.rating}
-                      </span>
+                    <span>
+                      🔥 {workout.caloriesBurned} kcal
+                    </span>
 
-                    </div>
+                    <span>
+                      ⭐ {workout.rating}
+                    </span>
                   </div>
+                </div>
 
-                  {/* Buttons */}
-                  <div className="flex items-center gap-3">
+                {/* Actions */}
+                <div className="flex flex-wrap items-center gap-3">
 
-                    {/* View Details */}
-                    <Link
-                      href={`/workouts/${workout.id}`}
-                      className="rounded-full border border-[#30343b] px-4 py-2 text-xs"
+                  {/* View Details */}
+                  <Link
+                    href={`/workouts/${workout.id}`}
+                    className="rounded-full border border-[#30343b] px-4 py-2 text-xs transition hover:bg-[#1b1e23]"
+                  >
+                    View Details
+                  </Link>
+
+                  {/* Mark as Done */}
+                  {activeTab === "today" && (
+                    <button
+                      className="flex items-center gap-1 rounded-full border border-[#30343b] bg-[#ccff00] px-4 py-2 text-xs text-black transition hover:bg-[#b8e600]"
                     >
-                      View Details
-                    </Link>
+                      <Check size={15} />
 
-                    {/* Mark as Done - only Today's Plan */}
-                    {activeTab === "today" && (
-                      <button className="flex items-center gap-1 rounded-full border border-[#30343b] bg-[#CCFF00] px-4 py-2 text-xs text-black">
-                        <Check size={15} />
-                        Mark as Done
-                      </button>
-                    )}
+                      Mark as Done
+                    </button>
+                  )}
 
-                  </div>
-
-                  {/* Remove */}
-                  <button className="text-gray-500 hover:text-red-500">
+                  {/* Delete */}
+                  <button
+                    className="text-gray-500 transition hover:text-red-500"
+                  >
                     <Trash size={20} />
                   </button>
 
                 </div>
-              ))
-            )}
+              </div>
+            ))
+          )}
 
-          </div>
         </div>
       </div>
     </div>

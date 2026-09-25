@@ -44,7 +44,9 @@ const Navbar = () => {
           </button>
 
           <button>
+            <Link href={'myplan'}>
             Saved ({savedWorkouts.length})
+            </Link>
           </button>
         </div>
 
