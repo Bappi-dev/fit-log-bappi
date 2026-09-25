@@ -103,8 +103,8 @@ const MyPlan = () => {
           <button
             onClick={() => setActiveTab("today")}
             className={`rounded-md px-4 py-2 text-xs transition ${activeTab === "today"
-                ? "bg-[#1b1e23] text-white"
-                : "text-gray-500 hover:text-white"
+              ? "bg-[#1b1e23] text-white"
+              : "text-gray-500 hover:text-white"
               }`}
           >
             Today's Plan
@@ -114,8 +114,8 @@ const MyPlan = () => {
           <button
             onClick={() => setActiveTab("saved")}
             className={`rounded-md px-4 py-2 text-xs transition ${activeTab === "saved"
-                ? "bg-[#1b1e23] text-white"
-                : "text-gray-500 hover:text-white"
+              ? "bg-[#1b1e23] text-white"
+              : "text-gray-500 hover:text-white"
               }`}
           >
             Saved
@@ -156,8 +156,18 @@ const MyPlan = () => {
 
               <p className="text-gray-400">
                 {activeTab === "today"
-                  ? "No workouts added to today's plan yet."
-                  : "No saved workouts yet."}
+                  ? <div className="space-y-4">
+                    <h2 className="text-2xl text-white font-bold ">NOTHING HERE YET</h2>
+                    <p>Browse the library and add a lift to get today moving.</p>
+                    <Link href="/"> <button className="btn border rounded-5xl bg-[#C2F10E]">Go to workouts</button></Link>
+                  </div>
+                  : <div className="space-y-4">
+                    <h2 className="text-2xl text-white font-bold ">NOTHING HERE YET</h2>
+                    <p>Browse the library and add a lift to get today moving.</p>
+                    <div className="rounded-2xl">
+                      <Link href="/"> <button className="btn border rounded-5xl bg-[#C2F10E]">Go to workouts</button></Link>
+                    </div>
+                  </div>}
               </p>
 
             </div>
