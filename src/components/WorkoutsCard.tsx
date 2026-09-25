@@ -1,5 +1,4 @@
 'use client'
-import { WorkoutContext } from '@/context/WorkoutProvider';
 import { IWorkouts } from '@/types/type';
 import Image from 'next/image';
 import Link from 'next/link';

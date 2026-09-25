@@ -1,6 +1,8 @@
 import { IWorkouts } from '@/types/type';
 import Image from 'next/image';
 import React, { ReactNode } from 'react';
+import PlanButton from './sheradData/PlanButton';
+import SavedButton from './sheradData/SaveButton';
 
 interface IWorkoutPorps {
     workout: IWorkouts
@@ -113,11 +115,9 @@ const WorkoutsDatelisCard = ({ workout }: IWorkoutPorps) => {
 
                             {/* Buttons */}
                             <div className="mt-6 flex flex-wrap gap-3">
-                                <
+                                 <PlanButton workout={workout}/>
 
-                                <button className="rounded-md border border-[#30343b] px-4 py-2 text-xs text-gray-300 transition hover:bg-[#1b1e23]">
-                                    ♡ Save for later
-                                </button>
+                            <SavedButton workout={workout}/>
                             </div>
 
                         </div>
