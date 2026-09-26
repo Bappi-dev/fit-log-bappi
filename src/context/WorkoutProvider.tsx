@@ -1,4 +1,3 @@
-
 "use client";
 
 import { createContext, useState } from "react";
@@ -7,6 +6,7 @@ import { IWorkouts } from "@/types/type";
 interface IWorkoutContext {
   selectedWorkouts: IWorkouts[];
   addPlan: (workout: IWorkouts) => void;
+  removePlan: (id: string) => void;
 
   savedWorkouts: IWorkouts[];
   addSaved: (workout: IWorkouts) => void;
@@ -26,7 +26,6 @@ const WorkoutProvider = ({
   // Add workout to today's plan
   const addPlan = (workout: IWorkouts) => {
     setSelectedWorkouts((prev) => {
-      // duplicate prevent
       const alreadyAdded = prev.some(
         (item) => item.id === workout.id
       );
@@ -44,7 +43,14 @@ const WorkoutProvider = ({
     });
   };
 
-  // Save workout
+  // Remove workout  plan
+  const removePlan = (id: number) => {
+    setSelectedWorkouts((prev) =>
+      prev.filter((workout) => workout.id !== id)
+    );
+  };
+
+
   const addSaved = (workout: IWorkouts) => {
     setSavedWorkouts((prev) => {
       const alreadySaved = prev.some(
@@ -64,6 +70,7 @@ const WorkoutProvider = ({
       value={{
         selectedWorkouts,
         addPlan,
+        removePlan,
         savedWorkouts,
         addSaved,
       }}

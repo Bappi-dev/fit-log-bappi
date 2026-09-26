@@ -13,7 +13,7 @@ const MyPlan = () => {
     throw new Error("MyPlan must be inside WorkoutProvider");
   }
 
-  const { selectedWorkouts, savedWorkouts } = context;
+  const { selectedWorkouts, savedWorkouts , removePlan } = context;
 
   const [activeTab, setActiveTab] = useState<"today" | "saved">("today");
 
@@ -164,8 +164,8 @@ const MyPlan = () => {
                   : <div className="space-y-4">
                     <h2 className="text-2xl text-white font-bold ">NOTHING HERE YET</h2>
                     <p>Browse the library and add a lift to get today moving.</p>
-                    <div className="rounded-2xl">
-                      <Link href="/"> <button className="btn border rounded-5xl bg-[#C2F10E]">Go to workouts</button></Link>
+                    <div className="">
+                      <Link className="rounded-2xl" href="/"> <button className="btn border rounded-5xl bg-[#C2F10E]">Go to workouts</button></Link>
                     </div>
                   </div>}
               </p>
@@ -237,6 +237,7 @@ const MyPlan = () => {
 
                   {/* Delete */}
                   <button
+                   onClick={()=> removePlan(workout.id)}
                     className="text-gray-500 transition hover:text-red-500"
                   >
                     <Trash size={20} />

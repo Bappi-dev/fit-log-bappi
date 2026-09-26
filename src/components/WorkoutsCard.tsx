@@ -2,7 +2,6 @@
 import { IWorkouts } from '@/types/type';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useContext } from 'react';
 import { CgBmw } from 'react-icons/cg';
 import { FaRegStarHalfStroke } from 'react-icons/fa6';
 import { WiTime4 } from 'react-icons/wi';
