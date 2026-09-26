@@ -13,7 +13,7 @@ const MyPlan = () => {
     throw new Error("MyPlan must be inside WorkoutProvider");
   }
 
-  const { selectedWorkouts, savedWorkouts , removePlan } = context;
+  const { selectedWorkouts, savedWorkouts, removePlan, removeSaved } = context;
 
   const [activeTab, setActiveTab] = useState<"today" | "saved">("today");
 
@@ -96,56 +96,58 @@ const MyPlan = () => {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="mt-6 flex gap-2">
+        <div className=" items-center">
+          {/* Tabs */}
+          <div className="mt-6 flex gap-2">
 
-          {/* Today's Plan */}
-          <button
-            onClick={() => setActiveTab("today")}
-            className={`rounded-md px-4 py-2 text-xs transition ${activeTab === "today"
-              ? "bg-[#1b1e23] text-white"
-              : "text-gray-500 hover:text-white"
-              }`}
-          >
-            Today's Plan
-          </button>
+            {/* Today's Plan */}
+            <button
+              onClick={() => setActiveTab("today")}
+              className={`rounded-md px-4 py-2 text-xs transition ${activeTab === "today"
+                ? "bg-[#1b1e23] text-white"
+                : "text-gray-500 hover:text-white"
+                }`}
+            >
+              Today's Plan
+            </button>
 
-          {/* Saved */}
-          <button
-            onClick={() => setActiveTab("saved")}
-            className={`rounded-md px-4 py-2 text-xs transition ${activeTab === "saved"
-              ? "bg-[#1b1e23] text-white"
-              : "text-gray-500 hover:text-white"
-              }`}
-          >
-            Saved
-          </button>
-        </div>
+            {/* Saved */}
+            <button
+              onClick={() => setActiveTab("saved")}
+              className={`rounded-md px-4 py-2 text-xs transition ${activeTab === "saved"
+                ? "bg-[#1b1e23] text-white"
+                : "text-gray-500 hover:text-white"
+                }`}
+            >
+              Saved
+            </button>
+          </div>
 
-        {/* Sort */}
-        <div className="mt-4 flex items-center justify-end gap-3 border-y border-[#272b32] py-4">
+          {/* Sort */}
+          <div className=" lg:flex items-center justify-end gap-3 border-y border-[#272b32] ">
 
-          <span className="text-sm text-gray-500">
-            Sort By
-          </span>
+            <span className="text-sm text-gray-500">
+              Sort By
+            </span>
 
-          <select
-            value={sortBy}
-            onChange={(e) =>
-              setSortBy(
-                e.target.value as "duration" | "calories"
-              )
-            }
-            className="rounded-lg border border-[#30343b] bg-[#15181e] px-4 py-2 text-sm text-white outline-none"
-          >
-            <option value="duration">
-              Duration
-            </option>
+            <select
+              value={sortBy}
+              onChange={(e) =>
+                setSortBy(
+                  e.target.value as "duration" | "calories"
+                )
+              }
+              className="rounded-lg border border-[#30343b] bg-[#15181e] px-4  text-sm text-white outline-none"
+            >
+              <option value="duration">
+                Duration
+              </option>
 
-            <option value="calories">
-              Calories
-            </option>
-          </select>
+              <option value="calories">
+                Calories
+              </option>
+            </select>
+          </div>
         </div>
 
         {/* Workout List */}
@@ -237,7 +239,11 @@ const MyPlan = () => {
 
                   {/* Delete */}
                   <button
-                   onClick={()=> removePlan(workout.id)}
+                    onClick={() =>
+                      activeTab === "today"
+                        ? removePlan(workout.id)
+                        : removeSaved(workout.id)
+                    }
                     className="text-gray-500 transition hover:text-red-500"
                   >
                     <Trash size={20} />

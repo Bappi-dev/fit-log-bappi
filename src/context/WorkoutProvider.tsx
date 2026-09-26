@@ -6,10 +6,11 @@ import { IWorkouts } from "@/types/type";
 interface IWorkoutContext {
   selectedWorkouts: IWorkouts[];
   addPlan: (workout: IWorkouts) => void;
-  removePlan: (id: string) => void;
+  removePlan: (id: number) => void;
 
   savedWorkouts: IWorkouts[];
   addSaved: (workout: IWorkouts) => void;
+  removeSaved: (id: number) => void;
 }
 
 export const WorkoutContext = createContext<IWorkoutContext | null>(null);
@@ -50,6 +51,11 @@ const WorkoutProvider = ({
     );
   };
 
+  const removeSaved = (id: number) => {
+    setSavedWorkouts((prev) =>
+      prev.filter((workout) => workout.id !== id)
+    );
+  };
 
   const addSaved = (workout: IWorkouts) => {
     setSavedWorkouts((prev) => {
@@ -73,6 +79,7 @@ const WorkoutProvider = ({
         removePlan,
         savedWorkouts,
         addSaved,
+        removeSaved,
       }}
     >
       {children}

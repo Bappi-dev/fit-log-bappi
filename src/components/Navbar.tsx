@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="lg:flex justify-between gap-4 items-center container mx-auto py-6">
+      <div className="flex justify-between gap-4 items-center container mx-auto py-6">
 
         <Link href="/" className="flex gap-3 items-center">
           <Image src={navImag} alt="navbar" />
@@ -35,17 +35,17 @@ const Navbar = () => {
         <div className="lg:flex gap-5">
           <button>
             <Link href={"myplan"}>
-            
-            Plan{" "}
-            <span className="bg-green-400 text-black rounded-full px-1">
-              {selectedWorkouts.length}
-            </span>
+
+              Plan{" "}
+              <span className="bg-green-400 text-black rounded-full px-1">
+                {selectedWorkouts.length}
+              </span>
             </Link>
           </button>
 
           <button>
             <Link href={'myplan'}>
-            Saved ({savedWorkouts.length})
+              Saved ({savedWorkouts.length})
             </Link>
           </button>
         </div>
