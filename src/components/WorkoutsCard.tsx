@@ -8,7 +8,6 @@ import { WiTime4 } from 'react-icons/wi';
 
 interface IWorkoutProps {
     workout: IWorkouts
-    setSelectedWorkouts: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const WorkoutsCard = ({ workout }: IWorkoutProps) => {

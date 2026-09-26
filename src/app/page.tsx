@@ -2,7 +2,7 @@
 import Banner from '@/components/Banner';
 import WorkoutsCard from '@/components/WorkoutsCard';
 import { IWorkouts } from '@/types/type';
-import React from 'react';
+
 
 export const getWorkoutsPlan = async () => {
   const res = await fetch('https://api.abcz.workers.dev/api/fitlog')
@@ -22,7 +22,7 @@ const HomePage = async () => {
         </div>
         <div className='grid gird-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3'>
           {
-            workouts.map((workout: IWorkouts) => <WorkoutsCard key={workout?.id} workout={workout} />)
+            workouts.map((workout: IWorkouts) => <WorkoutsCard key={workout.id}  workout={workout} />)
           }
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { IWorkouts } from '@/types/type';
 import Image from 'next/image';
-import React, { ReactNode } from 'react';
+import  { ReactNode } from 'react';
 import PlanButton from './sheradData/PlanButton';
 import SavedButton from './sheradData/SaveButton';
 
