@@ -5,6 +5,7 @@ import { WorkoutContext } from "@/context/WorkoutProvider";
 import Image from "next/image";
 import { Check, Trash } from "lucide-react";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const MyPlan = () => {
   const context = useContext(WorkoutContext);
@@ -75,7 +76,7 @@ const MyPlan = () => {
 
           {/* Minutes */}
           <div className="border-t border-[#272b32] p-6 sm:border-l sm:border-t-0">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs  text-gray-500">
               Minutes
             </p>
 
@@ -104,7 +105,7 @@ const MyPlan = () => {
             <button
               onClick={() => setActiveTab("today")}
               className={`rounded-md px-4 py-2 text-xs transition ${activeTab === "today"
-                ? "bg-[#1b1e23] text-white"
+                ? "bg-[#1b1e23] text-green-500"
                 : "text-gray-500 hover:text-white"
                 }`}
             >
@@ -126,7 +127,7 @@ const MyPlan = () => {
           {/* Sort */}
           <div className=" lg:flex items-center justify-end gap-3 border-y border-[#272b32] ">
 
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-white">
               Sort By
             </span>
 
@@ -134,7 +135,7 @@ const MyPlan = () => {
               value={sortBy}
               onChange={(e) =>
                 setSortBy(
-                  e.target.value as "duration" | "calories"
+                  e.target.value as | "duration" | "calories"
                 )
               }
               className="rounded-lg border border-[#30343b] bg-[#15181e] px-4  text-sm text-white outline-none"
@@ -145,6 +146,9 @@ const MyPlan = () => {
 
               <option value="calories">
                 Calories
+              </option>
+              <option value="reting">
+                Reting
               </option>
             </select>
           </div>
@@ -221,15 +225,18 @@ const MyPlan = () => {
                   {/* View Details */}
                   <Link
                     href={`/workouts/${workout.id}`}
-                    className="rounded-full border border-[#30343b] px-4 py-2 text-xs transition hover:bg-[#1b1e23]"
+                    className="rounded-full border border-gray-500 px-4 py-2 text-xs transition hover:bg-[#1b1e23]"
                   >
                     View Details
                   </Link>
 
                   {/* Mark as Done */}
                   {activeTab === "today" && (
+
                     <button
+                      onClick={() => toast.success("marked as done!")}
                       className="flex items-center gap-1 rounded-full border border-[#30343b] bg-[#ccff00] px-4 py-2 text-xs text-black transition hover:bg-[#b8e600]"
+
                     >
                       <Check size={15} />
 

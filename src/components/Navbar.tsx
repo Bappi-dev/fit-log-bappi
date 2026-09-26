@@ -78,7 +78,7 @@ const Navbar = () => {
                 </span>
               </Link>
 
-              <Link href="/saved">
+              <Link href="/myplan">
                 Saved {" "}
                 <span className=" text-white text-black rounded-full px-2">
                   ({savedWorkouts.length})

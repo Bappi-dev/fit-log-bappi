@@ -27,20 +27,20 @@ const WorkoutsDatelisCard = ({ workout }: IWorkoutPorps) => {
                             />
                         </div>
 
-                    
+
                         <div className="flex flex-col">
 
-                           
+
                             <h1 className="text-2xl font-extrabold uppercase tracking-tight">
                                 {workout.name}
                             </h1>
 
-                           
+
                             <p className="mt-2 text-sm leading-6 text-gray-400">
                                 {workout.description}
                             </p>
 
-                           
+
                             <div className="mt-3 flex flex-wrap gap-2">
                                 {workout.muscleGroups.map((muscle) => (
                                     <span
@@ -52,7 +52,7 @@ const WorkoutsDatelisCard = ({ workout }: IWorkoutPorps) => {
                                 ))}
                             </div>
 
-                           
+
                             <div className="mt-4 space-y-5 overflow-hidden rounded-xl border border-[#272b32] bg-[#15181e]">
 
                                 <div className='lg:flex justify-between'>
@@ -115,9 +115,9 @@ const WorkoutsDatelisCard = ({ workout }: IWorkoutPorps) => {
 
                             {/* Buttons */}
                             <div className="mt-6 flex flex-wrap gap-3">
-                                 <PlanButton workout={workout}/>
+                                <PlanButton workout={workout} />
 
-                            <SavedButton workout={workout}/>
+                                <SavedButton workout={workout} />
                             </div>
 
                         </div>
